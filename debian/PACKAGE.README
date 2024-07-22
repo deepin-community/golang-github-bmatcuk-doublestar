@@ -1,0 +1,1 @@
+newer versions (>4.0.0) use io/fs, which needs golang 1.16

@@ -1,15 +1,40 @@
-Source: template-repository
-Section: unknown
+Source: golang-github-bmatcuk-doublestar
+Section: golang
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Debian Go Packaging Team <team+pkg-go@tracker.debian.org>
+Uploaders: Thorsten Alteholz <debian@alteholz.de>
+Build-Depends: debhelper-compat (= 13),
+               dh-golang,
+               golang-any
+Standards-Version: 4.6.2
+Homepage: https://github.com/bmatcuk/doublestar
+Vcs-Browser: https://salsa.debian.org/go-team/packages/golang-github-bmatcuk-doublestar
+Vcs-Git: https://salsa.debian.org/go-team/packages/golang-github-bmatcuk-doublestar.git
+Rules-Requires-Root: no
+XS-Go-Import-Path: github.com/bmatcuk/doublestar
+Testsuite: autopkgtest-pkg-go
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: golang-github-bmatcuk-doublestar-dev
+Architecture: all
+Depends: ${misc:Depends}
+Multi-Arch: foreign
+Description: support for double star matches in golang's path.Match and filepath.Glob
+ This package contains a Golang implementation of path pattern matching
+ and globbing with support for "doublestar" (aka globstar: **) patterns.
+ .
+ doublestar patterns match files and directories recursively. For example,
+ if you had the following directory structure:
+ .
+ grandparent `-- parent
+     |-- child1 `-- child2
+ .
+ You could find the children with patterns such as: **/child*,
+ grandparent/**/child?, **/parent/*, or even just ** by itself (which
+ will return all files and directories recursively).
+ .
+ Bash's globstar is doublestar's inspiration and, as such, works similarly.
+ Note that the doublestar must appear as a path component by itself. A
+ pattern such as /path** is invalid and will be treated the same as
+ /path*, but /path*/** should achieve the desired result. Additionally,
+ /path/** will match all directories and files under the path directory,
+ but /path/**/ will only match directories.
