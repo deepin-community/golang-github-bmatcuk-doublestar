@@ -1,4 +1,10 @@
 #!/usr/bin/make -f
 
+export DH_GOLANG_EXCLUDES := examples
+
 %:
-	dh $@
+	dh $@ --builddirectory=_build --buildsystem=golang --with=golang
+
+execute_after_dh_auto_test:
+	chmod -R ugo+rwx _build/src/github.com/bmatcuk/doublestar/test/nopermission
+	$(RM) -r _build/src/github.com/bmatcuk/doublestar/test
